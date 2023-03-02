@@ -1,0 +1,38 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editando {{editfuncionario.nome}}</title>
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <main>
+        <h1>Editar informações de "{{editfuncionario.nome}}"</h1>
+        <hr>
+        <form action="/funcionario/updatefuncionario" method="post">
+            <div class="form-control">
+                <input type="hidden" name="cpf" value="{{editfuncionario.cpf}}">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" placeholder="Digite o nome do funcionario"
+                    value="{{editfuncionario.nome}}" </div>
+
+                <div class="form-control">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" name="cargo" placeholder="Digito o cargo" value="{{editfuncionario.cargo}}"
+                        </div>
+
+                    <div class="form-control">
+                        <label for="idade">Idade:</label>
+                        <input type="text" name="idade" placeholder="Digite a idade" value="{{editfuncionario.idade}}"
+                            </div>
+                        <br>
+                        <input type="submit" value="Editar">
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+</body>
