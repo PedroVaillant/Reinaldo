@@ -14,7 +14,6 @@ app.set("view engine", "hbs");
 app.use(express.static("public"));
 
 //====================================================================== Rotas =============================================================================================//
-
 //---------------------------------------- home.hbs ----------------------------------------------//
 // Página Home
 app.get("/", (req, res) => {
@@ -688,6 +687,115 @@ app.get("/actionfigure/remove/:id", (req, res) => {
   });
 });
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Empresa ++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+app.get("/cadastroempresa", (req, res) => {
+  res.render("empresacadastro", { layout: false });
+});
+
+app.post("/buscar/empresa/", (req, res) => {
+  const { busca } = req.body;
+
+  const sql = `SELECT * FROM empresa WHERE cnpj = '${busca}' OR nome LIKE '%${busca}%'`;
+
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    const listarEmpresa = data[0];
+    res.render("empresacnpj", { layout: false, listarEmpresa });
+  });
+});
+
+app.post("/empresa/insertEmpresa", (req, res) => {
+  const { cnpj, nome, email, telefone, local } = req.body;
+
+  const sql = `INSERT INTO empresa (cnpj, nome, email, local, telefone) VALUES ( '${cnpj}' ,'${nome}','${email}','${local}','${telefone}' )`;
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+    }
+
+    res.redirect("/empresas");
+    console.log("Cadastro com sucesso");
+  });
+});
+
+app.get("/listaempresas", (req, res) => {
+  const sql = "SELECT * FROM empresa";
+
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const listar = data;
+
+    res.render("empresaslista", { layout: false, listar });
+  });
+});
+
+app.get("/empresa/:cnpj", (req, res) => {
+  const cnpj = req.params.cnpj;
+
+  const sql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
+
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const listarEmpresa = data[0];
+    res.render("empresacnpj", { layout: false, listarEmpresa });
+  });
+});
+
+app.get("/empresa/edit/:cnpj", (req, res) => {
+  const cnpj = req.params.cnpj;
+
+  const sql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
+
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    const empresa = data[0];
+    res.render("empresaseditar", { layout: false, empresa });
+  });
+});
+
+app.post("/alterar/updateEmpresa", (req, res) => {
+  const { cnpj, nome, email, telefone, local } = req.body;
+
+  const sql = `UPDATE empresa SET nome = '${nome}', email = '${email}', telefone = '${telefone}', local= '${local}' WHERE cnpj = '${cnpj}' `;
+
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+    }
+
+    console.log("Alterado com sucesso");
+    res.redirect(`/empresa/${cnpj}`);
+  });
+});
+
+app.get("/empresa/remove/:cnpj", (req, res) => {
+  const cnpj = req.params.cnpj;
+
+  const sql = `DELETE FROM empresa WHERE cnpj = '${cnpj}' `;
+
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    res.redirect("/empresas");
+    console.log("excluido com sucesso");
+  });
+});
 //==============================================================================================================================================//
 
 // Conexão com DB no mysql
