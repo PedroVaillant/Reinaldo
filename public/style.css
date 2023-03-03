@@ -1,90 +1,97 @@
-
 /* Configuracoes gerais */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 /* Navbar */
 nav {
-    height: 100px;
+  height: 100px;
 }
 
-.container-fluid{
-    margin: 0 50px 0 50px !important;
+nav .container-fluid {
+  margin: 0 50px 0 50px !important;
 }
 
-nav .btn{
-    border: none;
-    color: black;
-    background-color: aliceblue;
+nav .btn {
+  border: none;
+  color: black;
+  background-color: aliceblue;
+  border-radius:  0 20px  20px 0 ;
 }
-nav .btn:hover{
-    background-color: #fa2a00;
-    border: #fa2a00;   
+nav .btn:hover {
+  background-color: #fa2a00;
+  border: #fa2a00;
 }
+
+nav input{
+  border-radius: 20px 0 0  20px !important;
+  border: none;
+}
+
+
 
 /* footer */
-footer {
-    color: white;
-    background-color: #3d1c00;
-    width: 100%;
-    bottom: 0;
-    display: grid;
-    grid-template-areas:
-      "atent loc contat"
-      "links redeSocial uni"
-      "logo logo logo";
-    align-items: center;
-    justify-content: space-around;
-  }
-  
-  footer a{
-    color: white;
-    text-decoration: none;
-  }
+.footergira {
+  color: white;
+  background-color: #3d1c00;
+  width: 100%;
+  bottom: 0;
+  display: grid;
+  grid-template-areas:
+    "atent loc contat"
+    "links redeSocial uni"
+    "logo logo logo";
+  align-items: center;
+  justify-content: space-around;
+}
 
-  .contatos p {
-    color: black;
-  }
+.footergira a {
+  color: white;
+  text-decoration: none;
+}
+
+.footergira p {
+ font-size: 15px;
+}
 
 /* Configuracoes lista de brinquedos */
-.cardmain{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 10px 25px 0 25px;
+.cardmain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 10px 25px 0 25px;
 }
 
-.card{
-    margin: 15px;
-    padding: 15px;
+.card {
+  margin: 15px;
+  padding: 15px;
 }
 
-.cardmain a{
-    background-color: #fa2a00;
-    border: none;
+.cardmain a {
+  background-color: #fa2a00;
+  border: none;
 }
 
-.cardmain a:hover{
-    background-color: #3d1c00;
-    border: none;
+.cardmain a:hover {
+  background-color: #3d1c00;
+  border: none;
 }
 
 /* Configuracao cadastro */
-.formadd{
-    margin: 50px auto 50px;
-    max-width: 800px;
-    padding: 50px;
-    background-color: #f0d8a8;
-    border-radius: 10px;
+.formadd {
+  margin: 50px auto 50px;
+  max-width: 800px;
+  padding: 50px;
+  background-color: #f0d8a8;
+  border-radius: 10px;
 }
 
-.formadd button{
-    background-color: #fa2a00;
-    border: none;
+.formadd button {
+  background-color: #fa2a00;
+  border: none;
 }
 
 /* #btnaddlivro {
@@ -112,22 +119,20 @@ footer {
   } */
 
 /* Configuracao buscarbrinquedo */
-.buscarback{
-    background-color: #f0d8a8;
-    margin: 50px auto 50px;
-    width: 1000px;
-    height: auto;
-    padding: 15px;
-    border-radius: 10px;
-    align-items: center;
-    text-align: center;
-    align-content: center;
+.buscarback {
+  background-color: #f0d8a8;
+  margin: 50px auto 50px;
+  width: 1000px;
+  height: auto;
+  padding: 15px;
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
+  align-content: center;
 }
 
-.botoesbuscar{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.botoesbuscar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
-
-
