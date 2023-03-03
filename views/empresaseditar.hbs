@@ -8,36 +8,42 @@
 </head>
 
 
-<h1> Editar Empresa</h1>
-<hr>
+<body>
+  <header>
 
-<form action="/alterar/updateEmpresa" method="POST">
+  </header>
+  <main>
+    <h1> Editar Empresa</h1>
+    <hr>
 
-<div class="form control">
-    <input type="hidden" name="cnpj" id="cnpj" value="{{empresa.cnpj}}">
-    <label for="nome">nome</label>
-    <input type="text" name="nome" placeholder="Digite aqui o nome do empresa"
-     value="{{empresa.nome}}">
-</div>
+    <form action="/alterar/updateEmpresa" method="POST">
 
-<div class="form control">
-    <label for="email">email</label>
-    <input type="text" name="email" placeholder="Digite aqui o email do empresa"
-     value="{{empresa.email}}">
-</div>
+      <div class="form control">
+        <input type="hidden" name="cnpj" id="cnpj" value="{{empresa.cnpj}}">
+        <label for="nome">nome</label>
+        <input type="text" name="nome" placeholder="Digite aqui o nome do empresa" value="{{empresa.nome}}">
+      </div>
 
-<div class="form control">
-    <label for="telefone">telefone</label>
-    <input type="text" name="telefone" placeholder="Digite aqui o telefone do empresa" 
-    value="{{empresa.telefone}}">
-</div>
+      <div class="form control">
+        <label for="email">email</label>
+        <input type="text" name="email" placeholder="Digite aqui o email do empresa" value="{{empresa.email}}">
+      </div>
 
-<div class="form control">
-    <label for="local">Endereço</label>
-    <input type="text" name="local" placeholder="Digite aqui o local do empresa" 
-    value="{{empresa.local}}">
-</div>
+      <div class="form control">
+        <label for="telefone">telefone</label>
+        <input type="text" name="telefone" placeholder="Digite aqui o telefone do empresa" value="{{empresa.telefone}}">
+      </div>
 
-<input type="Submit" value="Editar">
+      <div class="form control">
+        <label for="local">Endereço</label>
+        <input type="text" name="local" placeholder="Digite aqui o local do empresa" value="{{empresa.local}}">
+      </div>
 
- </form>
+      <input type="Submit" value="Editar">
+
+    </form>
+  </main>
+  <footer>
+
+  </footer>
+</body>
