@@ -716,7 +716,7 @@ app.post("/empresa/insertEmpresa", (req, res) => {
       console.log(err);
     }
 
-    res.redirect("/empresas");
+    res.redirect("/listaempresas");
     console.log("Cadastro com sucesso");
   });
 });
@@ -792,7 +792,7 @@ app.get("/empresa/remove/:cnpj", (req, res) => {
       return;
     }
 
-    res.redirect("/empresas");
+    res.redirect("/listaempresas");
     console.log("excluido com sucesso");
   });
 });
