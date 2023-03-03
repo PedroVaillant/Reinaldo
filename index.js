@@ -796,7 +796,6 @@ app.get("/empresa/remove/:cnpj", (req, res) => {
     console.log("excluido com sucesso");
   });
 });
-//==============================================================================================================================================//
 
 // Conexão com DB no mysql
 const conn = mysql.createConnection({
