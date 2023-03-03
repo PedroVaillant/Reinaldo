@@ -19,7 +19,7 @@ app.use(express.static("public"));
 // Página Home
 app.get("/", (req, res) => {
   res.render("home", { layout: false });
-  app.use(express.static(__dirname +  '/public'));
+  app.use(express.static(__dirname + "/public"));
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -67,7 +67,7 @@ app.get("/catalogobrinquedos", (req, res) => {
 
 // Função de buscar, que leva para o brinquedobuscar.hbs
 app.post("/resultado/brinquedo/", (req, res) => {
-  const {busca} = req.body;
+  const { busca } = req.body;
 
   const sql = `SELECT * FROM brinquedos WHERE id = '${busca}' OR nome LIKE '%${busca}%'`;
 
@@ -136,7 +136,7 @@ app.get("/brinquedo/editar/:id", (req, res) => {
 
 // Função de editar
 app.post("/brinquedo/updatebrinquedo", (req, res) => {
-  const id = req.body.id; 
+  const id = req.body.id;
   const nome = req.body.nome;
   const marca = req.body.marca;
   const material = req.body.material;
@@ -171,7 +171,6 @@ app.get("/brinquedoid/:id", (req, res) => {
     res.render("brinquedoid", { layout: false, listardados });
   });
 });
-
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Funcionarios ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 //---------------------------------------- funcionariocadastro.hbs ----------------------------------------------//
@@ -285,7 +284,7 @@ app.get("/funcionario/editar/:cpf", (req, res) => {
 
 // Função de editar
 app.post("/funcionario/updatefuncionario", (req, res) => {
-  const cpf = req.body.cpf; 
+  const cpf = req.body.cpf;
   const nome = req.body.nome;
   const cargo = req.body.cargo;
   const idade = req.body.idade;
@@ -432,7 +431,7 @@ app.get("/jogodemesa/editar/:id", (req, res) => {
 
 // Função de editar
 app.post("/jogodemesa/updatejogodemesa", (req, res) => {
-  const id = req.body.id; 
+  const id = req.body.id;
   const genero = req.body.genero;
   const nome = req.body.nome;
   const preco = req.body.preco;
@@ -469,269 +468,225 @@ app.get("/jogodemesaid/:id", (req, res) => {
 });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Gift Card ++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-//rotas
+app.get("/cadastrogiftcard", (req, res) => {
+  res.render("giftcardcadastro", { layout: false });
+});
 
-//rota inicio
-app.get('/cadastrogiftcard', (req, res) => {
-  res.render('giftcardcadastro', { layout: false })
+app.post("/buscar/giftcard/", (req, res) => {
+  const { busca } = req.body;
 
-})
+  const sql = `SELECT * FROM giftcard WHERE id = '${busca}' OR nome LIKE '%${busca}%'`;
 
-//rota de busca (busc) que enviar para view produto produto.handlebars
-app.post('/buscar/giftcard/', (req, res) => {
-  
-  const {busca} = req.body
-  
-  const sql = `SELECT * FROM giftcard WHERE id = '${busca}' OR nome LIKE '%${busca}%'`
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
+    const listargiftcard = data[0];
+    res.render("giftcardid", { layout: false, listargiftcard });
+  });
+});
 
-      const listargiftcard = data[0]
-      res.render('giftcardid', {  layout: false, listargiftcard } )
+app.post("/giftcard/addgiftcard", (req, res) => {
+  const { tipo, nome, preco } = req.body;
 
-  })
-})
+  const sql = `INSERT INTO giftcard (tipo, nome, preco) VALUES ( '${tipo}' ,'${nome}','${preco}' )`;
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+    }
 
-// inserir dados (rota)
-app.post('/giftcard/addgiftcard', (req,res)=>{
-  const { tipo, nome, preco } = req.body
-  
-  const sql = `INSERT INTO giftcard (tipo, nome, preco) VALUES ( '${tipo}' ,'${nome}','${preco}' )`
-  conn.query(sql, function(err){
-      if (err){
-          console.log(err)
-      }
+    res.redirect("/catalogogiftcard");
+    console.log("Cadastro com sucesso");
+  });
+});
 
-      res.redirect('/catalogogiftcard')
-      console.log("Cadastro com sucesso")
-})
-})
+app.get("/catalogogiftcard", (req, res) => {
+  const sql = "SELECT * FROM giftcard";
 
-// consulta geral
-app.get('/catalogogiftcard', (req,res) => {
-  const sql = 'SELECT * FROM giftcard'
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const listar = data;
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
-      const listar = data
+    res.render("giftcardcatalogo", { layout: false, listar });
+  });
+});
 
+app.get("/giftcard/:id", (req, res) => {
+  const id = req.params.id;
 
-      res.render('giftcardcatalogo', { layout: false, listar})
-  })
-})
+  const sql = `SELECT * FROM giftcard WHERE id = '${id}'`;
 
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const listargiftcard = data[0];
+    res.render("giftcardid", { layout: false, listargiftcard });
+  });
+});
 
-// consuta um registro pelo id (giftcard.handlebars)
-app.get('/giftcard/:id', (req,res) => {
-  const id = req.params.id
+app.get("/giftcard/edit/:id", (req, res) => {
+  const id = req.params.id;
 
-  const sql = `SELECT * FROM giftcard WHERE id = '${id}'`
+  const sql = `SELECT * FROM giftcard WHERE id = '${id}'`;
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
-      const listargiftcard = data[0]
-      res.render('giftcardid',{ layout:false, listargiftcard })
-  })
-})
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-//ROTA PARA MOSTRAR OS DADOS QUE SERAO EDITADOS  NO  REGISTRO (SEM A VIEW)
+    const giftcard = data[0];
+    res.render("giftcardeditar", { layout: false, giftcard });
+  });
+});
 
-app.get('/giftcard/edit/:id', (req, res) =>{
-  const id = req.params.id 
+app.post("/alterar/updategiftcard", (req, res) => {
+  const { id, tipo, nome, preco } = req.body;
 
-  const sql = `SELECT * FROM giftcard WHERE id = '${id}'`
+  const sql = `UPDATE giftcard SET tipo = '${tipo}', nome = '${nome}', preco = '${preco}' WHERE id = '${id}' `;
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
-  
-      const giftcard = data[0] 
-      res.render('giftcardeditar', {layout: false, giftcard})
-  })
-})
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+    }
 
-//ROTA QUE EDITA OS DADOS
+    console.log("Alterado com sucesso");
+    res.redirect(`/giftcard/${id}`);
+  });
+});
 
-app.post('/alterar/updategiftcard', (req,res) => {
+app.get("/giftcard/remove/:id", (req, res) => {
+  const id = req.params.id;
 
-  
-  const { id, tipo, nome, preco} = req.body
-  
+  const sql = `DELETE FROM giftcard WHERE id = '${id}' `;
 
-  const sql = `UPDATE giftcard SET tipo = '${tipo}', nome = '${nome}', preco = '${preco}' WHERE id = '${id}' `
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-  
-  conn.query(sql, function(err){
-      if (err){
-          console.log(err)
-      }
-
-      console.log("Alterado com sucesso")
-      res.redirect(`/giftcard/${id}`)
-})
-})
-
-//Remover giftcard
-
-app.get('/giftcard/remove/:id', (req,res) =>{
-  const id =req.params.id
-
-  const sql = `DELETE FROM giftcard WHERE id = '${id}' `
-
-  conn.query(sql, function(err){
-      if(err){
-          console.log(err)
-          return 
-      }
-      
-      res.redirect('/catalogogiftcard')
-      console.log("excluido com sucesso")
-
-  })
-})
+    res.redirect("/catalogogiftcard");
+    console.log("excluido com sucesso");
+  });
+});
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Action Figure ++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-//rota inicio
-app.get('/cadastroactionfigure', (req, res) => {
-  res.render('actionfigurescadastro', { layout: false })
+app.get("/cadastroactionfigure", (req, res) => {
+  res.render("actionfigurescadastro", { layout: false });
+});
 
-})
+app.post("/buscar/actionfigure/", (req, res) => {
+  const { busca } = req.body;
 
-//rota de busca (busc) que enviar para view produto produto.handlebars
-app.post('/buscar/actionfigure/', (req, res) => {
-  
-  const {busca} = req.body
-  
-  const sql = `SELECT * FROM actionfigure WHERE id = '${busca}' OR nome LIKE '%${busca}%'`
+  const sql = `SELECT * FROM actionfigure WHERE id = '${busca}' OR nome LIKE '%${busca}%'`;
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-      const listaractionfigure = data[0]
-      res.render('actionfigureid', {  layout: false, listaractionfigure } )
+    const listaractionfigure = data[0];
+    res.render("actionfigureid", { layout: false, listaractionfigure });
+  });
+});
 
-  })
-})
+app.post("/actionfigure/insertactionfigure", (req, res) => {
+  const { tipo, nome, preco } = req.body;
 
-// inserir dados (rota)
-app.post('/actionfigure/insertactionfigure', (req,res)=>{
-  const { tipo, nome, preco } = req.body
-  
-  const sql = `INSERT INTO actionfigure (tipo, nome, preco) VALUES ( '${tipo}' ,'${nome}','${preco}' )`
-  conn.query(sql, function(err){
-      if (err){
-          console.log(err)
-      }
+  const sql = `INSERT INTO actionfigure (tipo, nome, preco) VALUES ( '${tipo}' ,'${nome}','${preco}' )`;
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+    }
 
-      res.redirect('/')
-      console.log("Cadastro com sucesso")
-})
-})
+    res.redirect("/");
+    console.log("Cadastro com sucesso");
+  });
+});
 
-// consulta geral
-app.get('/catalogoactionfigures', (req,res) => {
-  const sql = 'SELECT * FROM actionfigure'
+app.get("/catalogoactionfigures", (req, res) => {
+  const sql = "SELECT * FROM actionfigure";
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
-      const listar = data
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const listar = data;
 
+    res.render("actionfigurescatalogo", { layout: false, listar });
+  });
+});
 
-      res.render('actionfigurescatalogo', { layout: false, listar})
-  })
-})
+app.get("/actionfigure/:id", (req, res) => {
+  const id = req.params.id;
 
+  const sql = `SELECT * FROM actionfigure WHERE id = '${id}'`;
 
-// consuta um registro pelo id (actionfigure.handlebars)
-app.get('/actionfigure/:id', (req,res) => {
-  const id = req.params.id
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    const listaractionfigure = data[0];
+    res.render("actionfigureid", { layout: false, listaractionfigure });
+  });
+});
 
-  const sql = `SELECT * FROM actionfigure WHERE id = '${id}'`
+app.get("/actionfigure/edit/:id", (req, res) => {
+  const id = req.params.id;
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
-      const listaractionfigure = data[0]
-      res.render('actionfigureid',{ layout:false, listaractionfigure })
-  })
-})
+  const sql = `SELECT * FROM actionfigure WHERE id = '${id}'`;
 
-//ROTA PARA MOSTRAR OS DADOS QUE SERAO EDITADOS  NO  REGISTRO (SEM A VIEW)
+  conn.query(sql, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-app.get('/actionfigure/edit/:id', (req, res) =>{
-  const id = req.params.id 
+    const actionfigure = data[0];
+    res.render("actionfigureseditar", { layout: false, actionfigure });
+  });
+});
 
-  const sql = `SELECT * FROM actionfigure WHERE id = '${id}'`
+app.post("/alterar/updateactionfigure", (req, res) => {
+  const { id, tipo, nome, preco } = req.body;
 
-  conn.query(sql, function(err, data){
-      if(err){
-          console.log(err)
-          return
-      }
-  
-      const actionfigure = data[0] 
-      res.render('actionfigureseditar', {layout: false, actionfigure})
-  })
-})
+  const sql = `UPDATE actionfigure SET tipo = '${tipo}', nome = '${nome}', preco = '${preco}' WHERE id = '${id}' `;
 
-//ROTA QUE EDITA OS DADOS
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+    }
 
-app.post('/alterar/updateactionfigure', (req,res) => {
+    console.log("Alterado com sucesso");
+    res.redirect(`/actionfigure/${id}`);
+  });
+});
 
-  
-  const { id, tipo, nome, preco} = req.body
-  
+app.get("/actionfigure/remove/:id", (req, res) => {
+  const id = req.params.id;
 
-  const sql = `UPDATE actionfigure SET tipo = '${tipo}', nome = '${nome}', preco = '${preco}' WHERE id = '${id}' `
+  const sql = `DELETE FROM actionfigure WHERE id = '${id}' `;
 
-  
-  conn.query(sql, function(err){
-      if (err){
-          console.log(err)
-      }
+  conn.query(sql, function (err) {
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-      console.log("Alterado com sucesso")
-      res.redirect(`/actionfigure/${id}`)
-})
-})
-
-//Remover actionfigure
-
-app.get('/actionfigure/remove/:id', (req,res) =>{
-  const id =req.params.id
-
-  const sql = `DELETE FROM actionfigure WHERE id = '${id}' `
-
-  conn.query(sql, function(err){
-      if(err){
-          console.log(err)
-          return 
-      }
-      
-      res.redirect('/catalogoactionfigures')
-      console.log("excluido com sucesso")
-
-  })
-})
+    res.redirect("/catalogoactionfigures");
+    console.log("excluido com sucesso");
+  });
+});
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Empresa ++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 //==============================================================================================================================================//
 
