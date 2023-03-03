@@ -602,13 +602,143 @@ app.get('/giftcard/remove/:id', (req,res) =>{
   })
 })
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Action Figure ++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+//rota inicio
+app.get('/cadastroactionfigure', (req, res) => {
+  res.render('actionfigurescadastro', { layout: false })
+
+})
+
+//rota de busca (busc) que enviar para view produto produto.handlebars
+app.post('/buscar/actionfigure/', (req, res) => {
+  
+  const {busca} = req.body
+  
+  const sql = `SELECT * FROM actionfigure WHERE id = '${busca}' OR nome LIKE '%${busca}%'`
+
+  conn.query(sql, function(err, data){
+      if(err){
+          console.log(err)
+          return
+      }
+
+      const listaractionfigure = data[0]
+      res.render('actionfigureid', {  layout: false, listaractionfigure } )
+
+  })
+})
+
+// inserir dados (rota)
+app.post('/actionfigure/insertactionfigure', (req,res)=>{
+  const { tipo, nome, preco } = req.body
+  
+  const sql = `INSERT INTO actionfigure (tipo, nome, preco) VALUES ( '${tipo}' ,'${nome}','${preco}' )`
+  conn.query(sql, function(err){
+      if (err){
+          console.log(err)
+      }
+
+      res.redirect('/')
+      console.log("Cadastro com sucesso")
+})
+})
+
+// consulta geral
+app.get('/catalogoactionfigures', (req,res) => {
+  const sql = 'SELECT * FROM actionfigure'
+
+  conn.query(sql, function(err, data){
+      if(err){
+          console.log(err)
+          return
+      }
+      const listar = data
+
+
+      res.render('actionfigurescatalogo', { layout: false, listar})
+  })
+})
+
+
+// consuta um registro pelo id (actionfigure.handlebars)
+app.get('/actionfigure/:id', (req,res) => {
+  const id = req.params.id
+
+  const sql = `SELECT * FROM actionfigure WHERE id = '${id}'`
+
+  conn.query(sql, function(err, data){
+      if(err){
+          console.log(err)
+          return
+      }
+      const listaractionfigure = data[0]
+      res.render('actionfigureid',{ layout:false, listaractionfigure })
+  })
+})
+
+//ROTA PARA MOSTRAR OS DADOS QUE SERAO EDITADOS  NO  REGISTRO (SEM A VIEW)
+
+app.get('/actionfigure/edit/:id', (req, res) =>{
+  const id = req.params.id 
+
+  const sql = `SELECT * FROM actionfigure WHERE id = '${id}'`
+
+  conn.query(sql, function(err, data){
+      if(err){
+          console.log(err)
+          return
+      }
+  
+      const actionfigure = data[0] 
+      res.render('actionfigureseditar', {layout: false, actionfigure})
+  })
+})
+
+//ROTA QUE EDITA OS DADOS
+
+app.post('/alterar/updateactionfigure', (req,res) => {
+
+  
+  const { id, tipo, nome, preco} = req.body
+  
+
+  const sql = `UPDATE actionfigure SET tipo = '${tipo}', nome = '${nome}', preco = '${preco}' WHERE id = '${id}' `
+
+  
+  conn.query(sql, function(err){
+      if (err){
+          console.log(err)
+      }
+
+      console.log("Alterado com sucesso")
+      res.redirect(`/actionfigure/${id}`)
+})
+})
+
+//Remover actionfigure
+
+app.get('/actionfigure/remove/:id', (req,res) =>{
+  const id =req.params.id
+
+  const sql = `DELETE FROM actionfigure WHERE id = '${id}' `
+
+  conn.query(sql, function(err){
+      if(err){
+          console.log(err)
+          return 
+      }
+      
+      res.redirect('/catalogoactionfigures')
+      console.log("excluido com sucesso")
+
+  })
+})
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Empresa ++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 //==============================================================================================================================================//
 
 // Conexão com DB no mysql
 const conn = mysql.createConnection({
   host: "127.0.0.1",
-  port: "3307",
+  port: "3306",
   user: "root",
   password: "",
   database: "infanciagirassol",
