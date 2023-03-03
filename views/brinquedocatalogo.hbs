@@ -10,7 +10,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg {{!--fixed-top--}} " style="background-color: #f9ce07;">
+        <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #f9ce07;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/"><img src="https://cdn-icons-png.flaticon.com/512/5579/5579570.png"
                         width="50"></a>
@@ -22,18 +22,31 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/catalogoactionfigures">Action Figures</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a class="nav-link" href="/catalogobrinquedos">Brinquedos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="/catalogojogosdemesa">Jogos de Mesa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link" href="/catalogogiftcard">Gift Cards</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/listadefuncionarios">Funcionário</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/listaempresas">Empresas</a>
                         </li>
                     </ul>
                     <form class="d-flex" {{!--apos isso os codigo para funcionar--}} action="/resultado/brinquedo/"
                         method="post">
-                        <input class="form-control me-2" type="search" {{!--apos isso os codigo para funcionar--}} name="busca" id="busca">
+                        <input class="form-control me-2" type="search" {{!--apos isso os codigo para funcionar--}}
+                            name="busca" id="busca">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
                 </div>
