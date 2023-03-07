@@ -2,35 +2,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Catalogo Action Figure</title>
 </head>
 
 <body>
-    <header>
-        <form action="/buscar/actionfigure/" method="post">
-            <div class="form-control">
-                <input type="text" name="busca" id="busca">
-
-
-                <input type="submit" value="Buscar">
-            </div>
-        </form>
-
-    </header>
-    <main>
-        <h1> Action Figure </h1>
-
-        {{#each listar}}
-
-        <strong>#{{this.id}} </strong> -
-        Nome: <a href="/actionfigure/{{this.id}}"> {{nome}} </a> - Tipo: {{tipo}} - Valor {{preco}} <br>
-
-        {{/each}}
-    </main>
-    <footer>
-
-    </footer>
-
+    <form action="/buscar/actionfigure/" method="post">
+        <div>
+            <input type="text" name="busca" id="busca">
+            <input type="submit" value="Buscar">
+        </div>
+    </form>
+    <hr>
+    <a href="/">VOLTAR</a>
+    <h1> Action Figures </h1>
+    {{#each listar}}
+    <strong>#{{this.id}} </strong> -
+    Nome: <a href="/actionfigure/{{this.id}}"> {{nome}} </a>
+    <br>
+    {{/each}}
 </body>
-
-</html>

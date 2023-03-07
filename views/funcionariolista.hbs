@@ -6,26 +6,18 @@
 </head>
 
 <body>
-    <header>
-
-    </header>
-    <main>
-        <h1>Lista de funcionários</h1>
-        <hr>
-
-        <form action="/resultado/funcionario/" method="post">
-            <div class="form-control">
-                <input type="search" name="cpf" id="cpf" placeholder="Digite o CPF">
-
-                <input type="submit" value="Buscar">
-        </form>
-        <br>
-        {{#each listar}}
-        <br>
-        * <strong><a href="/funcionarioCPF/{{this.cpf}}">{{nome}}</a></strong>
-        {{/each}}
-    </main>
-    <footer>
-
-    </footer>
+    <h1>Lista de funcionários</h1>
+    <hr>
+    <form action="/resultado/funcionario/" method="post">
+        <div>
+            <input type="search" name="cpf" id="cpf" placeholder="Digite o CPF">
+            <input type="submit" value="Buscar">
+        </div>
+    </form>
+    <hr>
+  <a href="/">VOLTAR</a>
+    {{#each listar}}
+    <br>
+    {{cpf}} - <strong><a href="/funcionarioCPF/{{this.cpf}}">{{nome}}</a></strong>
+    {{/each}}
 </body>

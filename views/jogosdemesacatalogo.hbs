@@ -6,24 +6,20 @@
 </head>
 
 <body>
-    <header>
-        <h1>Lista de jogo de mesa</h1>
-        <hr>
+        
         <form action="/resultado/jogosdemesa/" method="post">
-            <div class="form-control">
+            <div>
                 <input type="text" name="id" id="id">
-
                 <input type="submit" value="Buscar">
+            </div>
         </form>
-    </header>
-    <main>
+        <hr>
+        <a href="/">VOLTAR</a>
+        <h1>Jogos de mesa</h1>
         {{#each listar}}
         <br>
         <strong> #{{this.id}} </strong>
         - <a href="/jogodemesaid/{{this.id}}">{{nome}}</a>
         {{/each}}
-    </main>
-    <footer>
 
-    </footer>
 </body>

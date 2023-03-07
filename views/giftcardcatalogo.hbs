@@ -6,26 +6,18 @@
 </head>
 
 <body>
-    <header>
         <form action="/buscar/giftcard/" method="post">
-            <div class="form-control">
+            <div>
                 <input type="text" name="busca" id="busca">
                 <input type="submit" value="Buscar">
             </div>
-        </form>
-        <hr>
-    </header>
-    <main>
+       <hr> 
+       <a href="/">VOLTAR</a>
+       </form>
         {{#each listar}}
         <strong>#{{this.id}} </strong>
         - Nome: <a href="/giftcard/{{this.id}}"> {{nome}} </a>
-        - tipo: {{tipo}}
-        - preco {{preco}}
         <br>
         {{/each}}
-    </main>
-    <footer>
-
-    </footer>
 
 </body>

@@ -6,10 +6,6 @@
 </head>
 
 <body>
-    <header>
-
-    </header>
-    <main>
         <h1>Resultado da pesquisa: {{buscarfuncionario.nome}}</h1>
         <hr>
         - <strong>{{buscarfuncionario.nome}}</strong>
@@ -20,10 +16,8 @@
         <br>
         - Idade: {{buscarfuncionario.idade}}
         <br>
-        <a href="/funcionario/editar/{{buscarfuncionario.cpf}}">Editar dados</a>
-        <a href="/funcionario/excluir/{{buscarfuncionario.cpf}}">Excluir funcionário</a>
-    </main>
-    <footer>
+        <a href="/funcionario/editar/{{buscarfuncionario.cpf}}">EDITAR</a>
+        <a href="/funcionario/excluir/{{buscarfuncionario.cpf}}">EXCLUIR</a>
+        <a href="/listadefuncionarios">VOLTAR</a>
 
-    </footer>
 </body>

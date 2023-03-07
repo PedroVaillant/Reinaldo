@@ -1,44 +1,28 @@
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastrar Associados</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link rel="stylesheet" href="/public/css/empresa.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{listarEmpresa.nome}}</title>
 </head>
 
 <body>
-  <header>
-
-  </header>
-  <main>
-    <form>
-      <legend>Registro Da Empresa</legend>
-      <div class="mb-3">
-        <label class="form-label">CNPJ: {{listarEmpresa.cnpj}}</label>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Email: {{listarEmpresa.email}}</label>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Telefone: {{listarEmpresa.telefone}}</label>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Endereço: {{listarEmpresa.local}}</label>
-      </div>
-
-    </form>
-
-    <a href="/empresa/edit/{{listarEmpresa.cnpj}}"> EDITAR</a>
-    <a href="/empresa/remove/{{listarEmpresa.cnpj}}"> EXCLUIR</a>
-
-  </main>
-  <footer>
-
-  </footer>
-
-  <h1>Informações da empresa</h1>
-
-
-
+  <form>
+    <h1>Registro Da Empresa</h1>
+    <div>
+      <h2>{{listarEmpresa.nome}}</h2>
+      <label>CNPJ: {{listarEmpresa.cnpj}}</label>
+    </div>
+    <div>
+      <label>Email: {{listarEmpresa.email}}</label>
+    </div>
+    <div>
+      <label>Telefone: {{listarEmpresa.telefone}}</label>
+    </div>
+    <div>
+      <label>Endereço: {{listarEmpresa.local}}</label>
+    </div>
+  </form>
+  <a href="/empresa/edit/{{listarEmpresa.cnpj}}"> EDITAR</a>
+  <a href="/empresa/remove/{{listarEmpresa.cnpj}}"> EXCLUIR</a>
+  <a href="/listaempresas">VOLTAR</a>
 </body>
